@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { 
   Platform, 
   Tone, 
@@ -11,7 +12,8 @@ import {
 import { generateSocialPostText, generateSocialImage } from './services/geminiService';
 import { PlatformSelector } from './components/PlatformSelector';
 import { OutputCard } from './components/OutputCard';
-import { Sparkles, Hash, Smile, Zap, History, Loader2, Square, RectangleHorizontal, RectangleVertical, Smartphone } from 'lucide-react';
+import { LandingPage } from './components/LandingPage';
+import { Sparkles, Hash, Smile, Zap, History, Loader2, Square, RectangleHorizontal, RectangleVertical, Smartphone, ChevronLeft } from 'lucide-react';
 
 // Default config
 const DEFAULT_CONFIG: GenerationConfig = {
@@ -25,12 +27,26 @@ const DEFAULT_CONFIG: GenerationConfig = {
 };
 
 const App: React.FC = () => {
+  const [showLanding, setShowLanding] = useState(true);
   const [config, setConfig] = useState<GenerationConfig>(DEFAULT_CONFIG);
   const [status, setStatus] = useState<GenerationStatus>('idle');
   const [currentPost, setCurrentPost] = useState<GeneratedPost | null>(null);
   const [history, setHistory] = useState<GeneratedPost[]>([]);
 
-  // Handlers for inputs
+  // Persistent Landing state (optional, but good for refresh)
+  useEffect(() => {
+    const hasBeenToStudio = localStorage.getItem('visited_studio');
+    if (hasBeenToStudio === 'true') {
+      // setShowLanding(false); // Uncomment to skip landing on returning visitors
+    }
+  }, []);
+
+  const handleStart = () => {
+    setShowLanding(false);
+    localStorage.setItem('visited_studio', 'true');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleConfigChange = <K extends keyof GenerationConfig>(key: K, value: GenerationConfig[K]) => {
     setConfig(prev => ({ ...prev, [key]: value }));
   };
@@ -100,8 +116,12 @@ const App: React.FC = () => {
     </button>
   );
 
+  if (showLanding) {
+    return <LandingPage onStart={handleStart} />;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center p-4 sm:p-6 lg:p-8 relative overflow-hidden animate-in fade-in duration-500">
       {/* Background Ambience */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px]"></div>
@@ -109,15 +129,18 @@ const App: React.FC = () => {
       </div>
 
       <header className="w-full max-w-5xl mb-10 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="p-2.5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg shadow-indigo-500/20">
+        <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => setShowLanding(true)}>
+          <div className="p-2.5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
             <Zap className="w-6 h-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
               SocialPulse Pro
             </h1>
-            <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">AI Content Generator</p>
+            <div className="flex items-center gap-1 text-xs text-slate-500 font-medium tracking-wide uppercase">
+              <ChevronLeft className="w-3 h-3" />
+              <span>Back to Home</span>
+            </div>
           </div>
         </div>
         
