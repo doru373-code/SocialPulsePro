@@ -10,9 +10,12 @@ import {
   Linkedin, 
   Instagram, 
   Facebook, 
-  Pin,
   CheckCircle2,
-  Globe
+  Globe,
+  Github,
+  Server,
+  Key,
+  Monitor
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -39,6 +42,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
           <a href="#how-it-works" className="hover:text-white transition-colors">How it Works</a>
+          <a href="#deploy" className="hover:text-white transition-colors">Deploy Guide</a>
           <button 
             onClick={onStart}
             className="px-5 py-2.5 bg-white text-slate-950 rounded-full font-bold hover:bg-indigo-50 transition-all shadow-xl shadow-white/5"
@@ -99,6 +103,103 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
              <Facebook className="w-8 h-8 text-white" />
              <span className="text-[10px] font-bold uppercase tracking-widest">Facebook</span>
            </div>
+        </div>
+      </section>
+
+      {/* Deployment Section (NEW) */}
+      <section id="deploy" className="w-full bg-slate-900/50 border-y border-slate-800 py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-16 items-center">
+            <div className="flex-1 space-y-8 text-center md:text-left">
+              <h2 className="text-4xl font-bold text-white tracking-tight">Deploy Like a Professional</h2>
+              <p className="text-slate-400 text-lg leading-relaxed">
+                Take your SocialPulse Pro project to the world. We've optimized our engine to work seamlessly with modern hosting environments.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 shrink-0">
+                    <Server className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white text-sm">Hostinger Node.js Web Apps</h4>
+                    <p className="text-slate-500 text-xs">Full compatibility with Hostinger's enterprise-grade Node.js infrastructure.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400 shrink-0">
+                    <Github className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white text-sm">CI/CD Pipeline</h4>
+                    <p className="text-slate-500 text-xs">Connect Google AI Studio → GitHub → Hostinger for automated, zero-downtime deployments.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400 shrink-0">
+                    <Key className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white text-sm">Gemini Production Keys</h4>
+                    <p className="text-slate-500 text-xs">Manage your Gemini API keys securely in production using Hostinger Environment Variables.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-1 w-full">
+              <div className="bg-slate-950 p-6 rounded-3xl border border-slate-700 shadow-2xl relative">
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl"></div>
+                <div className="flex gap-1.5 mb-6">
+                  <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/50"></div>
+                </div>
+                <div className="space-y-4 font-mono text-xs">
+                  <div className="text-slate-500">// Deploying your AI project</div>
+                  <div className="flex gap-2">
+                    <span className="text-emerald-400">$</span>
+                    <span className="text-slate-300">npm run build</span>
+                  </div>
+                  <div className="text-slate-600 ml-4">Creating an optimized production build...</div>
+                  <div className="flex gap-2">
+                    <span className="text-emerald-400">$</span>
+                    <span className="text-slate-300">hostinger-deploy --github-hook</span>
+                  </div>
+                  <div className="text-indigo-400">✓ Connected to GitHub Repository</div>
+                  <div className="text-indigo-400">✓ Syncing with Hostinger Node.js Web App</div>
+                  <div className="text-indigo-400">✓ Environment Variables Verified</div>
+                  <div className="flex gap-2 mt-6 p-3 bg-indigo-500/5 border border-indigo-500/20 rounded-xl">
+                    <Monitor className="w-4 h-4 text-indigo-400 shrink-0" />
+                    <span className="text-indigo-200">Production ready: 100% verified uniqueness</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-6 bg-slate-800/30 rounded-2xl border border-slate-700 flex gap-4 items-center">
+              <div className="p-3 bg-orange-500/10 rounded-full text-orange-400">
+                <Target className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Zero Blank Pages</h4>
+                <p className="text-slate-400 text-sm">We fix the common "blank white page" issue with a simple, proven build configuration.</p>
+              </div>
+            </div>
+            <div className="p-6 bg-slate-800/30 rounded-2xl border border-slate-700 flex gap-4 items-center">
+              <div className="p-3 bg-blue-500/10 rounded-full text-blue-400">
+                <Globe className="w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="font-bold text-white mb-1">Custom Domain Setup</h4>
+                <p className="text-slate-400 text-sm">Connect your own custom domain and go live like a professional SaaS project in minutes.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
